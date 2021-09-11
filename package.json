@@ -1,0 +1,25 @@
+{
+  "name": "petshop-agenda",
+  "version": "1.0.0",
+  "description": "API desenvolvida para o curso 'Rest com NodeJS'.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaopasantos/petshop-agenda.git"
+  },
+  "author": "João Albuquerque",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joaopasantos/petshop-agenda/issues"
+  },
+  "homepage": "https://github.com/joaopasantos/petshop-agenda#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
+}
