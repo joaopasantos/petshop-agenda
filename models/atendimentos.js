@@ -91,23 +91,23 @@ class Atendimento {
         const existemErros = erros.length
         if(existemErros){
             res.status(400).json(erros)
-        }
-        
-        const sql = 'UPDATE atendimentos SET ? WHERE id = ?'
+        }else{
+            const sql = 'UPDATE atendimentos SET ? WHERE id = ?'
 
-        connection.query(sql, [values, id], 
-            (err, result) => {
-                if(err){
-                    res.status(400).json(err)
-                }
-                res.status(200).json(
-                    {
-                        id,
-                        updated_values: values
+            connection.query(sql, [values, id], 
+                (err, result) => {
+                    if(err){
+                        res.status(400).json(err)
                     }
-                )
-            }
-    )}
+                    res.status(200).json(
+                        {
+                            id,
+                            updated_values: values
+                        }
+                    )
+                }
+        )}
+    }
 
     delete(id, res){
         const sql = 'DELETE FROM atendimentos WHERE ID = ?'
