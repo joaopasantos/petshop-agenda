@@ -52,9 +52,9 @@ class Atendimento {
         )}
     
     listByID(res, id){
-        const sql = `SELECT * FROM atendimentos WHERE id = ${id}`
+        const sql = `SELECT * FROM atendimentos WHERE id = ?`
 
-        connection.query(sql, 
+        connection.query(sql, id, 
             (err, result) => {
                 const atendimento = result[0]
 
@@ -64,6 +64,21 @@ class Atendimento {
                 res.status(200).json(atendimento)
             }
         )}
+    
+    alter(id, values, res){
+        if(values.data){
+            values.data = moment(values.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:mm:ss')
+        }
+        const sql = 'UPDATE atendimentos SET ? WHERE id = ?'
+
+        connection.query(sql, [values, id], 
+            (err, result) => {
+                if(err){
+                    res.status(400).json(err)
+                }
+                res.status(200).json(result)
+            })
+    }
 }
 
 module.exports= new Atendimento
