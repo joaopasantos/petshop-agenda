@@ -34,7 +34,10 @@ class Atendimento {
                         if(err){
                             res.status(400).json(err)
                         }
-                        res.status(201).json(result)
+                        res.status(201).json({
+                            id: result.insertId,
+                            values: atendimentoDatado
+                        })
                     })
     }}
 
@@ -51,16 +54,14 @@ class Atendimento {
     )}
     
     listByID(id, res){
-        const sql = `SELECT * FROM atendimentos WHERE id = ?`
+        const sql = 'SELECT * FROM atendimentos WHERE id = ?'
 
         connection.query(sql, id, 
             (err, result) => {
-                const atendimento = result[0]
-
                 if(err){
                     res.status(400).json(err)
                 }
-                res.status(200).json(atendimento)
+                res.status(200).json(...result)
             }
     )}
     
@@ -75,10 +76,15 @@ class Atendimento {
                 if(err){
                     res.status(400).json(err)
                 }
-                res.status(200).json(result)
+                res.status(200).json(
+                    {
+                        id,
+                        updated_values: values
+                    }
+                )
             }
     )}
-    
+
     delete(id, res){
         const sql = 'DELETE FROM atendimentos WHERE ID = ?'
 
@@ -87,7 +93,7 @@ class Atendimento {
                 if(err){
                     res.status(400).json(err)
                 }
-                res.status(200).json(result)
+                res.status(200).json({deleted_id: id})
             })
     }
 }

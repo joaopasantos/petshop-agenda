@@ -10,7 +10,7 @@ module.exports = app => {
         (req,res) => {
             const id = parseInt(req.params.id)
             
-            Atendimento.listByID(res, id)
+            Atendimento.listByID(id, res)
     })
 
     app.post('/atendimentos',
