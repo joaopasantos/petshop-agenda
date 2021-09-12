@@ -36,8 +36,7 @@ class Atendimento {
                         }
                         res.status(201).json(result)
                     })
-        }
-    }
+    }}
 
     list(res){
         const sql = "SELECT * FROM atendimentos"
@@ -49,9 +48,9 @@ class Atendimento {
                 }
                 res.status(200).json(result)
             }
-        )}
+    )}
     
-    listByID(res, id){
+    listByID(id, res){
         const sql = `SELECT * FROM atendimentos WHERE id = ?`
 
         connection.query(sql, id, 
@@ -63,7 +62,7 @@ class Atendimento {
                 }
                 res.status(200).json(atendimento)
             }
-        )}
+    )}
     
     alter(id, values, res){
         if(values.data){
@@ -72,6 +71,18 @@ class Atendimento {
         const sql = 'UPDATE atendimentos SET ? WHERE id = ?'
 
         connection.query(sql, [values, id], 
+            (err, result) => {
+                if(err){
+                    res.status(400).json(err)
+                }
+                res.status(200).json(result)
+            }
+    )}
+    
+    delete(id, res){
+        const sql = 'DELETE FROM atendimentos WHERE ID = ?'
+
+        connection.query(sql, id, 
             (err, result) => {
                 if(err){
                     res.status(400).json(err)

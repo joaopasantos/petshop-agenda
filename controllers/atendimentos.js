@@ -8,7 +8,8 @@ module.exports = app => {
 
     app.get('/atendimentos/:id',
         (req,res) => {
-            const id = req.params.id
+            const id = parseInt(req.params.id)
+            
             Atendimento.listByID(res, id)
     })
 
@@ -24,5 +25,12 @@ module.exports = app => {
             const values = req.body
 
             Atendimento.alter(id, values, res)
+    })
+
+    app.delete('/atendimentos/:id',
+        (req, res)=>{
+            const id = parseInt(req.params.id)
+
+            Atendimento.delete(id, res)
     })
 }
