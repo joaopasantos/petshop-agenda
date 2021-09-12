@@ -1,5 +1,4 @@
 # petshop-agenda
-API desenvolvida para o curso 'Rest com NodeJS'.
 
 ## Objetivo
 Essa API foi o projeto desenvolvido no curso 'Rest com NodeJS: API com Express e MySQL' da formação 'Node.js com Express'.
