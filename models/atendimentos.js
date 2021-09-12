@@ -66,9 +66,33 @@ class Atendimento {
     )}
     
     alter(id, values, res){
+        const validacoes = []
+        if(values.cliente){
+            const clienteValido = values.cliente.length >= 3
+            validacoes.push({
+                nome: 'cliente',
+                valido: clienteValido,
+                mensagem: 'Campo Cliente deve ter três ou mais caracteres.'
+            })
+        }
+
         if(values.data){
             values.data = moment(values.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:mm:ss')
+            const now = moment().format('YYYY-MM-DD HH:mm:ss')
+            const dataValida = moment(values.data).isSameOrAfter(now)
+            validacoes.push({
+                nome: 'data',
+                valido: dataValida,
+                mensagem: 'Valor do campo Data é inválido.'
+            })            
         }
+
+        const erros = validacoes.filter(campo => !campo.valido)
+        const existemErros = erros.length
+        if(existemErros){
+            res.status(400).json(erros)
+        }
+        
         const sql = 'UPDATE atendimentos SET ? WHERE id = ?'
 
         connection.query(sql, [values, id], 
